@@ -5,21 +5,31 @@ import pandas as pd
 import regex
 import json
 from utils.utils import calculate_time
+from dataclasses import dataclass
+
+
+@dataclass
+class Link:
+    link: str
+    position: str
 
 
 class LinkExtractor:
     def __init__(self, driver):
         self.driver = driver
+        self.links = []
 
     @calculate_time
     def get_website(self, url):
-        return self.driver.get(url).page_source
+        self.driver.get(url)
+        return self.driver.page_source
 
     @calculate_time
     def get_job_urls(self, page_source):
         page_bs4 = BeautifulSoup(page_source, features="html.parser")
         offers = page_bs4.find_all("a", class_="offer-details__title-link")
-        return {offer.getText(): offer['href'] for offer in offers}
+        links = [Link(offer.getText(), offer['href']) for offer in offers]
+        self.links += links
 
 
 
