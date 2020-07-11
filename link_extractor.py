@@ -2,26 +2,24 @@ from bs4 import BeautifulSoup
 import numpy as np
 from obrabiacz import Obrabiacz
 import pandas as pd
-import requests
 import regex
 import json
 from utils.utils import calculate_time
 
 
+class LinkExtractor:
+    def __init__(self, driver):
+        self.driver = driver
 
+    @calculate_time
+    def get_website(self, url):
+        return self.driver.get(url).page_source
 
-
-@calculate_time
-def get_website(url, driver):
-    driver.get(url)
-    return driver.page_source
-
-
-@calculate_time
-def get_job_urls(page_source):
-    page_bs4 = BeautifulSoup(page_source, features="html.parser")
-    offers = page_bs4.find_all("a", class_="offer-details__title-link")
-    return {offer.getText(): offer['href'] for offer in offers}
+    @calculate_time
+    def get_job_urls(self, page_source):
+        page_bs4 = BeautifulSoup(page_source, features="html.parser")
+        offers = page_bs4.find_all("a", class_="offer-details__title-link")
+        return {offer.getText(): offer['href'] for offer in offers}
 
 
 
