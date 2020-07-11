@@ -1,7 +1,4 @@
 from bs4 import BeautifulSoup
-import time
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 import numpy as np
 from obrabiacz import Obrabiacz
 import pandas as pd
@@ -11,64 +8,56 @@ import json
 from utils.utils import calculate_time
 
 
-@calculate_time
-def prepare_chrome_driver(driver_path):
-    chrome_options = Options()
-    chrome_options.add_argument("--disable-extensions")
-    chrome_options.add_argument("--disable-gpu")
-    chrome_options.add_argument("--headless")
-    return webdriver.Chrome(options=chrome_options,
-                            executable_path=driver_path)
+
 
 
 @calculate_time
-def get_pracuj_main_page(pracuj_address, driver):
-    driver.get(pracuj_address)
+def get_website(url, driver):
+    driver.get(url)
     return driver.page_source
 
-# pracuj_main_page_text = requests.get(pracuj_address).text.encode("utf-8")
-# print(repr(pracuj_main_page))
 
 @calculate_time
-def extract_categories(pracuj_main_page, allowed_categories):
-    pracuj_main_page_bs4 = BeautifulSoup(pracuj_main_page, features="html.parser")
-    pracuj_area_with_links = pracuj_main_page_bs4.find_all("div", class_="grid__seo-box")
-    pattern_json = regex.compile(r'\{(?:[^{}]|(?R))*\}')
-    # print(pracuj_area_with_links)
-    json_string_with_links = pattern_json.findall(str(pracuj_area_with_links))[0]
-    json_links = json.loads(json_string_with_links)['seo']
-    popular_categories = json_links["popularCategories"]
-    print("Popular categories:")
-    print([i['name'] for i in popular_categories])
+def get_job_urls(page_source):
+    page_bs4 = BeautifulSoup(page_source, features="html.parser")
+    offers = page_bs4.find_all("a", class_="offer-details__title-link")
+    return {offer.getText(): offer['href'] for offer in offers}
 
 
 
-    print(f"Allowing these categories only:\n{allowed_categories}")
+# this is unnecessary, since I hardcoded links to IT categories
+# @calculate_time
+# def extract_categories(pracuj_main_page, allowed_categories):
+#     pracuj_main_page_bs4 = BeautifulSoup(pracuj_main_page, features="html.parser")
+#     pracuj_area_with_links = pracuj_main_page_bs4.find_all("div", class_="grid__seo-box")
+#     print(str(pracuj_area_with_links))
+#     pattern_json = regex.compile(r'\{(?:[^{}]|(?R))*\}')
+#     # print(pracuj_area_with_links)
+#     json_string_with_links = pattern_json.findall(str(pracuj_area_with_links))[0]
+#     json_links = json.loads(json_string_with_links)['seo']
+#     popular_categories = json_links["popularCategories"]
+#     print("Popular categories:")
+#     print([i['name'] for i in popular_categories])
+#
+#
+#
+#     print(f"Allowing these categories only:\n{allowed_categories}")
+#
+#     # check if all allowed categories are present in popular categories
+#     for category in allowed_categories:
+#         if category not in popular_categories:
+#             print(f"Warning: allowed category {category} is not popular.")
+#
+#
+#     for category in allowed_categories:
+#         # tu wchodze w kazdy link, ktory juz mam w jsonie i pobieram linki do ofert pracy
+#         pass
 
-    # check if all allowed categories are present in popular categories
-    for category in allowed_categories:
-        if category not in popular_categories:
-            print(f"Warning: allowed category {category} is not popular.")
-
-
-    for category in allowed_categories:
-        # tu wchodze w kazdy link, ktory juz mam w jsonie i pobieram linki do ofert pracy
-        pass
 
 
 
 
 
-pracuj_category_links = []
-
-# for area in pracuj_area_with_links:
-#     all_as = area.find_all("a", class_="mainboard__box_cat_cnt_list_item_link")
-#     for a in all_as:
-#         link = a.get("href")
-#         if "it" in link or "arketing" in link:
-#             pracuj_category_links.append(link)
-
-# print status
 
 # odtad zrobilem comment
 
