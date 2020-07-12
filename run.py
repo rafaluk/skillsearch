@@ -1,26 +1,24 @@
 from link_extractor import LinkExtractor
 from utils.config import Config
 from driver import Driver
+from utils.utils import calculate_time
+
+# run run()
+# this will get the chrome driver from hard disk and prepare it for the job
+# then a LinkExtactor will get you links to job offers in model Link(link, position)
 
 
+@calculate_time
 def run():
     driver_path = Config.chrome_driver_path
-    # todo: fetch it from website automatically
-    # todo: check if there are IT job offers in other categories than these
-    pracuj_it_links = ["https://www.pracuj.pl/praca/it%20-%20rozw%C3%B3j%20oprogramowania;cc,5016",
-                       "https://www.pracuj.pl/praca/it%20-%20administracja;cc,5015"]
+    pracuj_it_links = Config.pracuj_it_links
 
     driver = Driver().prepare(driver_path)
     extractor = LinkExtractor(driver)
-    # todo: loop over all pages
-    it_rozwoj_opr_source = extractor.get_website(pracuj_it_links[0])
+    job_links = extractor.get_all_links(pracuj_it_links)
 
-    for site_no in range(1, 5):
-        extractor.get_job_urls(it_rozwoj_opr_source + "?pn=" + str(site_no))
-
-    links = extractor.links
-    print(len(links))
-    print(links)
+    print(len(job_links))
+    print(job_links)
 
 
 if __name__ == '__main__':

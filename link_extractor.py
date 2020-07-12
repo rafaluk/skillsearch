@@ -31,8 +31,15 @@ class LinkExtractor:
         links = [Link(offer.getText(), offer['href']) for offer in offers]
         self.links += links
 
-
-
+    @calculate_time
+    def get_all_links(self, category_links):
+        for category_link in category_links:
+            # todo: fetch automatically no_of_pages in category
+            no_of_pages = 5
+            for site_no in range(1, no_of_pages):
+                source = self.get_website(category_link + "?pn=" + str(site_no))
+                self.get_job_urls(source)
+        return self.links
 # this is unnecessary, since I hardcoded links to IT categories
 # @calculate_time
 # def extract_categories(pracuj_main_page, allowed_categories):

@@ -9,3 +9,7 @@ class Config:
     allowed_categories = {"Inżynieria", "Administracja biurowa",
                           "Marketing", "IT - Rozwój oprogramowania",
                           "IT - Administracja", "Bankowość"}
+    # todo: fetch it from website automatically
+    # todo: check if there are IT job offers in other categories than these
+    pracuj_it_links = ["https://www.pracuj.pl/praca/it%20-%20rozw%C3%B3j%20oprogramowania;cc,5016",
+                       "https://www.pracuj.pl/praca/it%20-%20administracja;cc,5015"]
