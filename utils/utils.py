@@ -15,3 +15,9 @@ def calculate_time(func):
 
 def now():
     return datetime.now().strftime("%c")
+
+
+def read_skills(filename):
+    with open(filename, 'r') as file:
+        skills = [line.rstrip('\n') for line in file]
+    return skills

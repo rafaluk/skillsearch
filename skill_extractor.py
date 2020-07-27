@@ -1,16 +1,19 @@
-from bs4 import BeautifulSoup
-from data_model import Link
+from data_model import OfferWithSkills
+from utils.utils import calculate_time
 
 
 class SkillExtractor:
     def __init__(self, skills):
         self.skills = skills
-
-    def get_skill_list(self, filename):
-        with open(filename, 'r') as file:
-            self.skills = [line.rstrip('\n') for line in file]
-        return self.skills
+        self.offers_with_skills = []
 
     def find_skills(self, offer):
-        for skill in self.skills:
-            if
+        return [skill for skill in self.skills if skill in offer]
+
+    @calculate_time
+    def get_skills_for_all(self, offers):
+        for offer in offers:
+            skills_in_offer = self.find_skills(offer.content)
+            offer_with_skills = OfferWithSkills(offer.url, offer.position, skills_in_offer)
+            self.offers_with_skills.append(offer_with_skills)
+        return self.offers_with_skills
