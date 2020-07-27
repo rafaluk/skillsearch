@@ -21,3 +21,11 @@ def read_skills(filename):
     with open(filename, 'r') as file:
         skills = [line.rstrip('\n') for line in file]
     return skills
+
+
+def is_int(s):
+    try:
+        int(s)
+        return True
+    except ValueError:
+        return False

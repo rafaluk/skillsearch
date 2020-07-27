@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 from data_model import Link
-from utils.utils import calculate_time
+from utils.utils import calculate_time, is_int
 
 
 class LinkExtractor:
@@ -23,7 +23,8 @@ class LinkExtractor:
     def get_all_links(self, category_links):
         for category_link in category_links:
             no_of_pages = self.get_no_of_pages(category_link)
-            for site_no in range(1, no_of_pages):
+            print(f'There are {no_of_pages} pages in: {category_link}')
+            for site_no in range(1, 3):
                 source = self.get_website(category_link + "?pn=" + str(site_no))
                 self.links += self.get_jobs(source)
         return self.links
@@ -33,5 +34,5 @@ class LinkExtractor:
         page_source = self.get_website(category_link)
         page_bs4 = BeautifulSoup(page_source, features="html.parser")
         number_containers = page_bs4.find_all("a", class_="pagination_trigger")
-        numbers = [int(cont.get_text()) for cont in number_containers]
+        numbers = [int(cont.get_text()) if is_int(cont.get_text()) else 0 for cont in number_containers]
         return max(numbers)
