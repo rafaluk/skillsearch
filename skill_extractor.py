@@ -13,7 +13,7 @@ class SkillExtractor:
     @calculate_time
     def get_skills_for_all(self, offers):
         for offer in offers:
-            skills_in_offer = self.find_skills(offer.content)
+            skills_in_offer = self.find_skills(offer.content.lower())
             offer_with_skills = OfferWithSkills(offer.url, offer.position, skills_in_offer)
             self.offers_with_skills.append(offer_with_skills)
         return self.offers_with_skills
