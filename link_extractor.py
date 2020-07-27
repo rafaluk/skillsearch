@@ -24,7 +24,7 @@ class LinkExtractor:
         for category_link in category_links:
             no_of_pages = self.get_no_of_pages(category_link)
             print(f'There are {no_of_pages} pages in: {category_link}')
-            for site_no in range(1, 3):
+            for site_no in range(1, no_of_pages):
                 source = self.get_website(category_link + "?pn=" + str(site_no))
                 self.links += self.get_jobs(source)
         return self.links

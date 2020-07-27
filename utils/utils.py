@@ -29,3 +29,13 @@ def is_int(s):
         return True
     except ValueError:
         return False
+
+
+def write_output(filename, offers):
+    def concat_offer_parts(offer):
+        skills = ','.join(offer.skills)
+        return str(offer.position) + '|' + str(offer.url) + '|' + str(skills)
+
+    with open(filename, "w+", encoding='utf-8') as outfile:
+        offers = [concat_offer_parts(offer) for offer in offers]
+        outfile.write("\n".join(offers))

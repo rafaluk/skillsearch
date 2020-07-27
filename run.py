@@ -3,12 +3,7 @@ from offer_extractor import OfferExtractor
 from skill_extractor import SkillExtractor
 from utils.config import Config
 from utils.driver import Driver
-from utils.utils import calculate_time, read_skills
-
-
-# run run()
-# this will get the chrome driver from hard disk and prepare it for the job
-# then a LinkExtractor will get you links to job offers in model Link(link, position)
+from utils.utils import calculate_time, read_skills, write_output
 
 
 @calculate_time
@@ -32,10 +27,8 @@ def run():
     skill_extractor = SkillExtractor(skills=read_skills("skills.txt"))
     job_offers_with_skills = skill_extractor.get_skills_for_all(job_offers)
 
-    with open("result.txt", "w+") as outfile:
-        for item in job_offers_with_skills:
-            outfile.write("\n".join(item))
-
+    # save output to file
+    write_output(filename="result.csv", offers=job_offers_with_skills)
 
 
 if __name__ == '__main__':
