@@ -104,7 +104,6 @@ pmbok
 postgresql
 powershell
 python
-r
 react
 redhat
 redis
