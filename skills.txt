@@ -1,0 +1,144 @@
+4gl
+active directory
+ai
+analityczn
+android
+angularjs
+ansible
+artifactory
+aruba
+asp.net
+aws
+azure
+bash
+bigdata
+bigquery
+bizagi
+bonita
+bootstrap
+bpmn
+c#
+c++
+cassandra
+chatbot
+cisco
+citrix xenapp
+cms
+cnn
+confluence
+crm
+cryptography
+css
+dax
+deep learning
+devops
+dfmea
+dhcp
+django
+dns
+docker
+edr
+elasticsearch
+elk
+enova365
+enterprise architect
+erp
+excel
+firewall
+flask
+fmeda
+git
+google ads
+gpo
+groovy
+hadoop
+haproxy
+hashicorp
+hive
+hpe 3par
+hpe msa storage
+hpe proliant
+hp-ux
+html5
+hyper-v
+ios
+ironpython
+istqb
+itil
+java
+javascript
+jenkins
+jira
+jquery
+junit
+jupyter
+kafka
+keras
+kubernetes
+linux
+locust
+logstash
+lstm
+machine learning
+matlab
+mockito
+mongodb
+ms sql
+mssql
+nginx
+node.js
+nosql
+ntfs
+numpy
+office
+onedrive
+openshift
+optima
+oracle sqlsoc
+pandas
+perl
+php
+pl/sql
+pmbok
+postgresql
+powershell
+python
+r
+react
+redhat
+redis
+rest
+rnn
+rwd
+sap
+scikit
+scrum
+scss
+selenium
+service management
+sharepoint
+siem
+soap
+sonarqube
+spark
+spring
+sql
+sqlalchemy
+ssl
+svn
+tableau
+tcp/ip
+teamcity
+tensorflow
+teradata
+theano
+tls
+tomcat
+uml
+user experience
+vba
+vmware
+waf
+wds
+windows server
+xml
