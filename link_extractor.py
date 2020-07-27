@@ -1,17 +1,6 @@
 from bs4 import BeautifulSoup
-import numpy as np
-from obrabiacz import Obrabiacz
-import pandas as pd
-import regex
-import json
+from data_model import Link
 from utils.utils import calculate_time
-from dataclasses import dataclass
-
-
-@dataclass
-class Link:
-    link: str
-    position: str
 
 
 class LinkExtractor:
@@ -25,21 +14,36 @@ class LinkExtractor:
         return self.driver.page_source
 
     @calculate_time
-    def get_job_urls(self, page_source):
+    def get_jobs(self, page_source):
         page_bs4 = BeautifulSoup(page_source, features="html.parser")
         offers = page_bs4.find_all("a", class_="offer-details__title-link")
-        links = [Link(offer.getText(), offer['href']) for offer in offers]
-        self.links += links
+        return [Link(offer['href'], offer.getText()) for offer in offers]
 
     @calculate_time
-    def get_all_links(self, category_links):
+    def get_all_links(self, category_links, no_of_pages):
         for category_link in category_links:
             # todo: fetch automatically no_of_pages in category
-            no_of_pages = 5
+            no_of_pages = no_of_pages
             for site_no in range(1, no_of_pages):
                 source = self.get_website(category_link + "?pn=" + str(site_no))
-                self.get_job_urls(source)
+                self.links += self.get_jobs(source)
         return self.links
+
+
+class SkillExtractor:
+    def __init__(self, links, driver):
+        self.links: Link = links
+        self.driver = driver
+
+    def get_page_source(self, url):
+        pass
+
+    def get_offer_details(self, page_source):
+        pass
+
+    def get_skills(self, offer_details):
+        pass
+
 # this is unnecessary, since I hardcoded links to IT categories
 # @calculate_time
 # def extract_categories(pracuj_main_page, allowed_categories):
