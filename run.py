@@ -1,24 +1,38 @@
 from link_extractor import LinkExtractor
+from offer_extractor import OfferExtractor
 from utils.config import Config
-from driver import Driver
+from utils.driver import Driver
 from utils.utils import calculate_time
 
 # run run()
 # this will get the chrome driver from hard disk and prepare it for the job
-# then a LinkExtactor will get you links to job offers in model Link(link, position)
+# then a LinkExtractor will get you links to job offers in model Link(link, position)
 
 
 @calculate_time
 def run():
-    driver_path = Config.chrome_driver_path
-    pracuj_it_links = Config.pracuj_it_links
+    # prepare chrome driver
+    driver = Driver().prepare(Config.chrome_driver_path)
 
-    driver = Driver().prepare(driver_path)
-    extractor = LinkExtractor(driver)
-    job_links = extractor.get_all_links(pracuj_it_links)
+    # get job offers in Link data model
+    link_extractor = LinkExtractor(driver)
+    # tu jest zle, bo bierze tyle samo strno z kazdej kategorii
+    job_links = link_extractor.get_all_links(Config.pracuj_it_links, 2)
 
-    print(len(job_links))
-    print(job_links)
+    print(f"Got {len(job_links)} job links.")
+
+    # get into an offer and get it's content in Offer data model
+    offer_extractor = OfferExtractor(driver)
+    job_offers = offer_extractor.get_all_offers(job_links)
+
+    print(f"Got {len(job_offers)} job offers.")
+
+
+    print(len(job_offers))
+    print('JOB OFFER 1 ------------------------')
+    print(job_offers[0].content)
+    print('JOB OFFER 2 ------------------------')
+    print(job_offers[1].content)
 
 
 if __name__ == '__main__':
