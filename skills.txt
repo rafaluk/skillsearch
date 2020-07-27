@@ -3,7 +3,7 @@ active directory
 ai
 analityczn
 android
-angularjs
+angular
 ansible
 artifactory
 aruba
@@ -44,6 +44,7 @@ enova365
 enterprise architect
 erp
 excel
+facebook
 firewall
 flask
 fmeda
@@ -136,6 +137,7 @@ tls
 tomcat
 uml
 user experience
+ux
 vba
 vmware
 waf
