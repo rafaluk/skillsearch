@@ -18,8 +18,7 @@ def run():
 
     # get job offers in Link data model
     link_extractor = LinkExtractor(driver=driver)
-    # tu jest zle, bo bierze tyle samo strno z kazdej kategorii
-    job_links = link_extractor.get_all_links(Config.pracuj_it_links, 2)
+    job_links = link_extractor.get_all_links(Config.pracuj_it_links)
 
     print(f"Got {len(job_links)} job links.")
 
@@ -33,15 +32,10 @@ def run():
     skill_extractor = SkillExtractor(skills=read_skills("skills.txt"))
     job_offers_with_skills = skill_extractor.get_skills_for_all(job_offers)
 
-    print(len(job_offers_with_skills))
-    print('JOB OFFER 1 ------------------------')
-    print(job_offers_with_skills[0].url)
-    print(job_offers_with_skills[0].position)
-    print(job_offers_with_skills[0].skills)
-    print('JOB OFFER 2 ------------------------')
-    print(job_offers_with_skills[1].url)
-    print(job_offers_with_skills[1].position)
-    print(job_offers_with_skills[1].skills)
+    with open("result.txt", "w+") as outfile:
+        for item in job_offers_with_skills:
+            outfile.write("\n".join(item))
+
 
 
 if __name__ == '__main__':

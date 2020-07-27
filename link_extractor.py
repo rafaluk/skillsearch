@@ -20,11 +20,18 @@ class LinkExtractor:
         return [Link(offer['href'], offer.getText()) for offer in offers]
 
     @calculate_time
-    def get_all_links(self, category_links, no_of_pages):
+    def get_all_links(self, category_links):
         for category_link in category_links:
-            # todo: fetch automatically no_of_pages in category
-            no_of_pages = no_of_pages
+            no_of_pages = self.get_no_of_pages(category_link)
             for site_no in range(1, no_of_pages):
                 source = self.get_website(category_link + "?pn=" + str(site_no))
                 self.links += self.get_jobs(source)
         return self.links
+
+    @calculate_time
+    def get_no_of_pages(self, category_link):
+        page_source = self.get_website(category_link)
+        page_bs4 = BeautifulSoup(page_source, features="html.parser")
+        number_containers = page_bs4.find_all("a", class_="pagination_trigger")
+        numbers = [int(cont.get_text()) for cont in number_containers]
+        return max(numbers)
