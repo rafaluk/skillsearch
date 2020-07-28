@@ -1,5 +1,4 @@
-from link_extractor import LinkExtractor
-from offer_extractor import OfferExtractor
+from extractor import LinkExtractor, OfferExtractor
 from skill_extractor import SkillExtractor
 from utils.config import Config
 from utils.driver import Driver
@@ -28,7 +27,7 @@ def run():
     job_offers_with_skills = skill_extractor.get_skills_for_all(job_offers)
 
     # save output to file
-    write_output(filename="result.csv", offers=job_offers_with_skills)
+    write_output(filename="outputs/result.csv", offers=job_offers_with_skills)
 
 
 if __name__ == '__main__':
