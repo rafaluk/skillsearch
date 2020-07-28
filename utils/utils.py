@@ -37,12 +37,14 @@ def save_offer_output(filename, offers):
         skills = ','.join(offer.skills)
         return str(offer.position) + '|' + str(offer.url) + '|' + str(skills)
 
+    logging.warning("File will be overwritten: " + filename)
     with open(filename, "w+", encoding='utf-8') as outfile:
         offers = [concat_offer_parts(offer) for offer in offers]
         outfile.write("\n".join(offers))
 
 
 def save_skills_output(filename, skills):
+    logging.warning("File will be overwritten: " + filename)
     with open(filename, "w+", encoding='utf-8') as outfile:
         for key, value in skills.items():
             outfile.write(f"{key},{value}\n")
