@@ -2,7 +2,7 @@ from data_model import OfferWithSkills
 from utils.utils import calculate_time
 
 
-class SkillExtractor:
+class SkillFinder:
     def __init__(self, skills):
         self.skills = skills
         self.offers_with_skills = []

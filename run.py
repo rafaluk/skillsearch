@@ -1,5 +1,5 @@
 from extractor import LinkExtractor, OfferExtractor
-from skill_extractor import SkillExtractor
+from skill_finder import SkillFinder
 from utils.config import Config
 from utils.driver import Driver
 from utils.utils import calculate_time, read_skills, write_output
@@ -23,7 +23,7 @@ def run():
     print(f"Got {len(job_offers)} job offers.")
 
     # get skills from offers in OfferWithSkills data model
-    skill_extractor = SkillExtractor(skills=read_skills("skills.txt"))
+    skill_extractor = SkillFinder(skills=read_skills("skills.txt"))
     job_offers_with_skills = skill_extractor.get_skills_for_all(job_offers)
 
     # save output to file
