@@ -31,7 +31,7 @@ def is_int(s):
         return False
 
 
-def write_output(filename, offers):
+def save_offer_output(filename, offers):
     def concat_offer_parts(offer):
         skills = ','.join(offer.skills)
         return str(offer.position) + '|' + str(offer.url) + '|' + str(skills)
@@ -39,3 +39,9 @@ def write_output(filename, offers):
     with open(filename, "w+", encoding='utf-8') as outfile:
         offers = [concat_offer_parts(offer) for offer in offers]
         outfile.write("\n".join(offers))
+
+
+def save_skills_output(filename, skills):
+    with open(filename, "w+", encoding='utf-8') as outfile:
+        for key, value in skills.items():
+            outfile.write(f"{key},{value}\n")
