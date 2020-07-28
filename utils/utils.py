@@ -1,5 +1,6 @@
 from time import time
 from datetime import datetime
+import logging
 
 
 def calculate_time(func):
@@ -8,7 +9,7 @@ def calculate_time(func):
         result = func(*args, **kwargs)
         end_time = time()
         elapsed_time = end_time - start_time
-        print(f"> Execution of {func.__name__!r} done in {round(elapsed_time, 2)} seconds.")
+        logging.info(f"Execution of {func.__name__!r} done in {round(elapsed_time, 2)} seconds.")
         return result
     return wrapper
 

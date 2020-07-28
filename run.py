@@ -4,7 +4,7 @@ from skill_finder import SkillFinder
 from utils.config import Config
 from utils.driver import Driver
 from utils.utils import calculate_time, read_skills, save_offer_output, save_skills_output
-
+import logging
 
 @calculate_time
 def run():
@@ -30,7 +30,7 @@ def run():
 def run_link_extraction(driver):
     link_extractor = LinkExtractor(driver=driver)
     job_links = link_extractor.get_all_links(Config.pracuj_it_links)
-    print(f"Got {len(job_links)} job links.")
+    logging.info(f"Got {len(job_links)} job links.")
     return job_links
 
 
@@ -38,7 +38,7 @@ def run_link_extraction(driver):
 def run_offer_extraction(driver, job_links):
     offer_extractor = OfferExtractor(driver=driver)
     job_offers = offer_extractor.get_all_offers(job_links)
-    print(f"Got {len(job_offers)} job offers.")
+    logging.info(f"Got {len(job_offers)} job offers.")
     return job_offers
 
 
@@ -60,4 +60,6 @@ def run_skill_aggregation(job_offers_with_skills):
 
 
 if __name__ == '__main__':
+    logging.basicConfig(filename='log.log', level=logging.INFO,
+                        format='%(asctime)s: %(message)s', datefmt='%d/%m/%Y %H:%M:%S')
     run()

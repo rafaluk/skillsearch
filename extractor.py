@@ -3,6 +3,7 @@ from data_model import Link
 from utils.config import Config
 from utils.utils import calculate_time, is_int
 from data_model import Offer
+import logging
 
 
 class Extractor:
@@ -35,7 +36,7 @@ class LinkExtractor(Extractor):
         for category_link in category_links:
             # limiting number of pages, if there are too many of them
             no_of_pages = min(self.get_no_of_pages(category_link), max_no_of_pages)
-            print(f'Searching {no_of_pages} pages in category: {category_link}')
+            logging.info(f'Searching {no_of_pages} pages in category: {category_link}')
             for site_no in range(1, no_of_pages):
                 source = self.get_website(category_link + "?pn=" + str(site_no))
                 self.links += self.get_jobs(source)
