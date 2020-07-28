@@ -1,10 +1,9 @@
-from collections import OrderedDict
 from utils.utils import calculate_time
 
 
 class SkillAggregator:
     def __init__(self):
-        self.skills = OrderedDict()
+        self.skills = {}
 
     def process(self, offer_with_skills: list):
         for skill in offer_with_skills:
@@ -18,4 +17,4 @@ class SkillAggregator:
     def process_all_offers(self, offers_with_skills):
         for offer in offers_with_skills:
             self.process(offer.skills)
-        return self.skills
+        return {k: self.skills[k] for k in sorted(self.skills, key=self.skills.get, reverse=True)}
