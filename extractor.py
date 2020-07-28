@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 from data_model import Link
+from utils.config import Config
 from utils.utils import calculate_time, is_int
 from data_model import Offer
 
@@ -23,7 +24,6 @@ class LinkExtractor(Extractor):
         Extractor.__init__(self, driver)
         self.links = []
 
-    @calculate_time
     def get_jobs(self, page_source):
         page_bs4 = self.transform_to_bs4(page_source)
         offers = page_bs4.find_all("a", class_="offer-details__title-link")
@@ -31,9 +31,11 @@ class LinkExtractor(Extractor):
 
     @calculate_time
     def get_all_links(self, category_links):
+        max_no_of_pages = Config.page_search_limit
         for category_link in category_links:
-            no_of_pages = self.get_no_of_pages(category_link)
-            print(f'There are {no_of_pages} pages in: {category_link}')
+            # limiting number of pages, if there are too many of them
+            no_of_pages = min(self.get_no_of_pages(category_link), max_no_of_pages)
+            print(f'Searching {no_of_pages} pages in category: {category_link}')
             for site_no in range(1, no_of_pages):
                 source = self.get_website(category_link + "?pn=" + str(site_no))
                 self.links += self.get_jobs(source)
@@ -53,7 +55,6 @@ class OfferExtractor(Extractor):
         Extractor.__init__(self, driver)
         self.offers = []
 
-    @calculate_time
     def get_offer(self, page_source, url, position):
         page_bs4 = self.transform_to_bs4(page_source)
         offer_container = page_bs4.find("div", class_="grid__offer-view")
