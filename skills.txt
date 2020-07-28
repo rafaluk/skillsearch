@@ -1,7 +1,5 @@
 4gl
 active directory
-ai
-analityczn
 android
 angular
 ansible
