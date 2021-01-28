@@ -1,6 +1,7 @@
 from time import time
 from datetime import datetime
 import logging
+import re
 
 
 def calculate_time(func):
@@ -48,3 +49,36 @@ def save_skills_output(filename, skills):
     with open(filename, "w+", encoding='utf-8') as outfile:
         for key, value in skills.items():
             outfile.write(f"{key},{value}\n")
+
+
+def parse_phases(phases):
+    LAST_PHASE_NO = 4
+
+    result = []
+
+    interval_pattern = re.compile("^\d\-\d$")
+    int_pattern = re.compile("^\d$")
+
+    def check_limits(number):
+        return 1 <= number <= LAST_PHASE_NO
+
+    valueErrorMsg = f'Incorrect phase. Please enter e.g.: 1 or 1-2 or 2-4 (default: all phases). Last phase: {LAST_PHASE_NO}'
+
+    if int_pattern.match(phases) is not None:
+        phases = int(phases)
+        if check_limits(phases):
+            result.append(phases)
+            return result
+        else:
+            raise ValueError(valueErrorMsg)
+    else:
+        
+        if interval_pattern.match(phases) is not None: 
+            start_phase, end_phase = [int(x) for x in phases.split('-')]
+            if (start_phase < end_phase):
+                    if check_limits(start_phase) & check_limits(end_phase):
+                        return list(range(start_phase, end_phase+1))
+                    else:
+                        raise ValueError(valueErrorMsg)
+            else:
+                raise ValueError(valueErrorMsg)
