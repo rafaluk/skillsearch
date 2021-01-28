@@ -1,5 +1,6 @@
 4gl
 active directory
+amazon web services
 android
 angular
 ansible
@@ -9,6 +10,7 @@ asp.net
 aws
 azure
 bash
+big data
 bigdata
 bigquery
 bizagi
@@ -20,13 +22,20 @@ c++
 cassandra
 chatbot
 cisco
-citrix xenapp
+clustering
 cms
 cnn
 confluence
 crm
 cryptography
 css
+data analysis
+data analytics
+data assurance
+data cleansing
+data management
+data manipulation
+data mining
 dax
 deep learning
 devops
@@ -45,10 +54,10 @@ excel
 facebook
 firewall
 flask
-fmeda
+gcp
 git
 google ads
-gpo
+google cloud platform
 groovy
 hadoop
 haproxy
@@ -84,6 +93,7 @@ mockito
 mongodb
 ms sql
 mssql
+neural network
 nginx
 node.js
 nosql
@@ -105,6 +115,7 @@ python
 react
 redhat
 redis
+regression
 rest
 rnn
 rwd
@@ -115,7 +126,6 @@ scss
 selenium
 service management
 sharepoint
-siem
 soap
 sonarqube
 spark
@@ -123,6 +133,7 @@ spring
 sql
 sqlalchemy
 ssl
+statistics
 svn
 tableau
 tcp/ip
@@ -132,10 +143,12 @@ teradata
 theano
 tls
 tomcat
+t-sql
 uml
 user experience
 ux
 vba
+visualisation
 vmware
 waf
 wds
