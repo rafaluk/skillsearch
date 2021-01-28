@@ -2,6 +2,7 @@ from time import time
 from datetime import datetime
 import logging
 import re
+import pandas as pd
 
 
 def calculate_time(func):
@@ -31,6 +32,11 @@ def is_int(s):
         return True
     except ValueError:
         return False
+    
+
+def save_links(filename, links):
+     df_links = pd.DataFrame(links)
+     df_links.to_csv(filename)
 
 
 def save_offer_output(filename, offers):
@@ -38,7 +44,6 @@ def save_offer_output(filename, offers):
         skills = ','.join(offer.skills)
         return str(offer.position) + '|' + str(offer.url) + '|' + str(skills)
 
-    logging.warning("File will be overwritten: " + filename)
     with open(filename, "w+", encoding='utf-8') as outfile:
         offers = [concat_offer_parts(offer) for offer in offers]
         outfile.write("\n".join(offers))
