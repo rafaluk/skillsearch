@@ -28,3 +28,9 @@ Use `run.py` to start the ETL:
     * `python run.py -p 3` - runs only third phase
     * `python run.py -p 2-4` - runs phases from second to fourth included
 
+## Skill list
+
+There is a list of skills in `skills.txt`. You can easily add/remove positions. The ETL uses this list to cross check skills with offers. 
+## Utils
+
+`@calculate_time` - decorator for measuring execution time
