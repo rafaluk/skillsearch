@@ -3,6 +3,7 @@ from datetime import datetime
 import logging
 import re
 import pandas as pd
+# import h5py
 
 
 def calculate_time(func):
@@ -36,13 +37,13 @@ def is_int(s):
 
 def save_links(filename, links):
      df_links = pd.DataFrame(links)
-     df_links.to_csv(filename)
+     df_links.to_csv(filename + '.csv')
 
 
 def save_offer_output(filename, offers):
     def concat_offer_parts(offer):
         skills = ','.join(offer.skills)
-        return str(offer.position) + '|' + str(offer.url) + '|' + str(skills)
+        return str(offer.position) + '|' + str(offer.url) + '|' + str(offer.salary) + '|' + str(offer.posted_by) + '|' + str(skills)
 
     with open(filename, "w+", encoding='utf-8') as outfile:
         offers = [concat_offer_parts(offer) for offer in offers]
@@ -50,7 +51,6 @@ def save_offer_output(filename, offers):
 
 
 def save_skills_output(filename, skills):
-    logging.warning("File will be overwritten: " + filename)
     with open(filename, "w+", encoding='utf-8') as outfile:
         for key, value in skills.items():
             outfile.write(f"{key},{value}\n")
@@ -76,14 +76,15 @@ def parse_phases(phases):
             return result
         else:
             raise ValueError(valueErrorMsg)
-    else:
         
-        if interval_pattern.match(phases) is not None: 
-            start_phase, end_phase = [int(x) for x in phases.split('-')]
-            if (start_phase < end_phase):
-                    if check_limits(start_phase) & check_limits(end_phase):
-                        return list(range(start_phase, end_phase+1))
-                    else:
-                        raise ValueError(valueErrorMsg)
-            else:
-                raise ValueError(valueErrorMsg)
+    if interval_pattern.match(phases) is not None: 
+        start_phase, end_phase = [int(x) for x in phases.split('-')]
+        if (start_phase < end_phase):
+                if check_limits(start_phase) & check_limits(end_phase):
+                    return list(range(start_phase, end_phase+1))
+                else:
+                    raise ValueError(valueErrorMsg)
+        else:
+            raise ValueError(valueErrorMsg)
+
+    raise ValueError(valueErrorMsg)

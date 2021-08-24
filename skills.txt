@@ -5,6 +5,7 @@ android
 angular
 ansible
 artifactory
+artificial intelligence
 aruba
 asp.net
 aws
@@ -29,6 +30,7 @@ confluence
 crm
 cryptography
 css
+cython
 data analysis
 data analytics
 data assurance
@@ -44,6 +46,7 @@ dhcp
 django
 dns
 docker
+dplyr
 edr
 elasticsearch
 elk
@@ -88,7 +91,9 @@ locust
 logstash
 lstm
 machine learning
+mapreduce
 matlab
+microsoft sql server
 mockito
 mongodb
 ms sql
@@ -112,15 +117,16 @@ pmbok
 postgresql
 powershell
 python
+pyspark
+qlik
 react
 redhat
 redis
 regression
-rest
+rest api
 rnn
-rwd
-sap
 scikit
+scipy
 scrum
 scss
 selenium
@@ -132,6 +138,7 @@ spark
 spring
 sql
 sqlalchemy
+sqlite
 ssl
 statistics
 svn

@@ -18,5 +18,7 @@ class Offer:
 class OfferWithSkills:
     url: str
     position: str
+    salary: str
     skills: list
+    posted_by: str
 
